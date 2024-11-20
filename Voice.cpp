@@ -27,7 +27,7 @@ SH_DECL_HOOK2(IGameEventManager2, FireEvent, SH_NOATTRIB, 0, bool, IGameEvent *,
 
 SH_DECL_HOOK2_void( IServerGameClients, ClientCommand, SH_NOATTRIB, 0, CPlayerSlot, const CCommand & );
 
-SamplePlugin g_SamplePlugin;
+VoiceData g_VoiceData;
 IServerGameDLL *server = NULL;
 IServerGameClients *gameclients = NULL;
 IVEngineServer *engine = NULL;
@@ -47,18 +47,8 @@ CGlobalVars *GetGameGlobals()
 	return g_pNetworkServerService->GetIGameServer()->GetGlobals();
 }
 
-#if 0
-// Currently unavailable, requires hl2sdk work!
-ConVar sample_cvar("sample_cvar", "42", 0);
-#endif
-
-CON_COMMAND_F(sample_command, "Sample command", FCVAR_NONE)
-{
-	META_CONPRINTF( "Sample command called by %d. Command: %s\n", context.GetPlayerSlot(), args.GetCommandString() );
-}
-
-PLUGIN_EXPOSE(SamplePlugin, g_SamplePlugin);
-bool SamplePlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen, bool late)
+PLUGIN_EXPOSE(VoiceData, g_VoiceData);
+bool VoiceData::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen, bool late)
 {
 	PLUGIN_SAVEVARS();
 
@@ -77,14 +67,14 @@ bool SamplePlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen, 
 
 	META_CONPRINTF( "Starting plugin.\n" );
 
-	SH_ADD_HOOK(IServerGameDLL, GameFrame, server, SH_MEMBER(this, &SamplePlugin::Hook_GameFrame), true);
-	SH_ADD_HOOK(IServerGameClients, ClientActive, gameclients, SH_MEMBER(this, &SamplePlugin::Hook_ClientActive), true);
-	SH_ADD_HOOK(IServerGameClients, ClientDisconnect, gameclients, SH_MEMBER(this, &SamplePlugin::Hook_ClientDisconnect), true);
-	SH_ADD_HOOK(IServerGameClients, ClientPutInServer, gameclients, SH_MEMBER(this, &SamplePlugin::Hook_ClientPutInServer), true);
-	SH_ADD_HOOK(IServerGameClients, ClientSettingsChanged, gameclients, SH_MEMBER(this, &SamplePlugin::Hook_ClientSettingsChanged), false);
-	SH_ADD_HOOK(IServerGameClients, OnClientConnected, gameclients, SH_MEMBER(this, &SamplePlugin::Hook_OnClientConnected), false);
-	SH_ADD_HOOK(IServerGameClients, ClientConnect, gameclients, SH_MEMBER(this, &SamplePlugin::Hook_ClientConnect), false);
-	SH_ADD_HOOK(IServerGameClients, ClientCommand, gameclients, SH_MEMBER(this, &SamplePlugin::Hook_ClientCommand), false);
+	SH_ADD_HOOK(IServerGameDLL, GameFrame, server, SH_MEMBER(this, &VoiceData::Hook_GameFrame), true);
+	SH_ADD_HOOK(IServerGameClients, ClientActive, gameclients, SH_MEMBER(this, &VoiceData::Hook_ClientActive), true);
+	SH_ADD_HOOK(IServerGameClients, ClientDisconnect, gameclients, SH_MEMBER(this, &VoiceData::Hook_ClientDisconnect), true);
+	SH_ADD_HOOK(IServerGameClients, ClientPutInServer, gameclients, SH_MEMBER(this, &VoiceData::Hook_ClientPutInServer), true);
+	SH_ADD_HOOK(IServerGameClients, ClientSettingsChanged, gameclients, SH_MEMBER(this, &VoiceData::Hook_ClientSettingsChanged), false);
+	SH_ADD_HOOK(IServerGameClients, OnClientConnected, gameclients, SH_MEMBER(this, &VoiceData::Hook_OnClientConnected), false);
+	SH_ADD_HOOK(IServerGameClients, ClientConnect, gameclients, SH_MEMBER(this, &VoiceData::Hook_ClientConnect), false);
+	SH_ADD_HOOK(IServerGameClients, ClientCommand, gameclients, SH_MEMBER(this, &VoiceData::Hook_ClientCommand), false);
 
 	META_CONPRINTF( "All hooks started!\n" );
 
@@ -94,65 +84,65 @@ bool SamplePlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen, 
 	return true;
 }
 
-bool SamplePlugin::Unload(char *error, size_t maxlen)
+bool VoiceData::Unload(char *error, size_t maxlen)
 {
-	SH_REMOVE_HOOK(IServerGameDLL, GameFrame, server, SH_MEMBER(this, &SamplePlugin::Hook_GameFrame), true);
-	SH_REMOVE_HOOK(IServerGameClients, ClientActive, gameclients, SH_MEMBER(this, &SamplePlugin::Hook_ClientActive), true);
-	SH_REMOVE_HOOK(IServerGameClients, ClientDisconnect, gameclients, SH_MEMBER(this, &SamplePlugin::Hook_ClientDisconnect), true);
-	SH_REMOVE_HOOK(IServerGameClients, ClientPutInServer, gameclients, SH_MEMBER(this, &SamplePlugin::Hook_ClientPutInServer), true);
-	SH_REMOVE_HOOK(IServerGameClients, ClientSettingsChanged, gameclients, SH_MEMBER(this, &SamplePlugin::Hook_ClientSettingsChanged), false);
-	SH_REMOVE_HOOK(IServerGameClients, OnClientConnected, gameclients, SH_MEMBER(this, &SamplePlugin::Hook_OnClientConnected), false);
-	SH_REMOVE_HOOK(IServerGameClients, ClientConnect, gameclients, SH_MEMBER(this, &SamplePlugin::Hook_ClientConnect), false);
-	SH_REMOVE_HOOK(IServerGameClients, ClientCommand, gameclients, SH_MEMBER(this, &SamplePlugin::Hook_ClientCommand), false);
+	SH_REMOVE_HOOK(IServerGameDLL, GameFrame, server, SH_MEMBER(this, &VoiceData::Hook_GameFrame), true);
+	SH_REMOVE_HOOK(IServerGameClients, ClientActive, gameclients, SH_MEMBER(this, &VoiceData::Hook_ClientActive), true);
+	SH_REMOVE_HOOK(IServerGameClients, ClientDisconnect, gameclients, SH_MEMBER(this, &VoiceData::Hook_ClientDisconnect), true);
+	SH_REMOVE_HOOK(IServerGameClients, ClientPutInServer, gameclients, SH_MEMBER(this, &VoiceData::Hook_ClientPutInServer), true);
+	SH_REMOVE_HOOK(IServerGameClients, ClientSettingsChanged, gameclients, SH_MEMBER(this, &VoiceData::Hook_ClientSettingsChanged), false);
+	SH_REMOVE_HOOK(IServerGameClients, OnClientConnected, gameclients, SH_MEMBER(this, &VoiceData::Hook_OnClientConnected), false);
+	SH_REMOVE_HOOK(IServerGameClients, ClientConnect, gameclients, SH_MEMBER(this, &VoiceData::Hook_ClientConnect), false);
+	SH_REMOVE_HOOK(IServerGameClients, ClientCommand, gameclients, SH_MEMBER(this, &VoiceData::Hook_ClientCommand), false);
 
 	return true;
 }
 
-void SamplePlugin::AllPluginsLoaded()
+void VoiceData::AllPluginsLoaded()
 {
 	/* This is where we'd do stuff that relies on the mod or other plugins 
 	 * being initialized (for example, cvars added and events registered).
 	 */
 }
 
-void SamplePlugin::Hook_ClientActive( CPlayerSlot slot, bool bLoadGame, const char *pszName, uint64 xuid )
+void VoiceData::Hook_ClientActive( CPlayerSlot slot, bool bLoadGame, const char *pszName, uint64 xuid )
 {
 	META_CONPRINTF( "Hook_ClientActive(%d, %d, \"%s\", %d)\n", slot, bLoadGame, pszName, xuid );
 }
 
-void SamplePlugin::Hook_ClientCommand( CPlayerSlot slot, const CCommand &args )
+void VoiceData::Hook_ClientCommand( CPlayerSlot slot, const CCommand &args )
 {
 	META_CONPRINTF( "Hook_ClientCommand(%d, \"%s\")\n", slot, args.GetCommandString() );
 }
 
-void SamplePlugin::Hook_ClientSettingsChanged( CPlayerSlot slot )
+void VoiceData::Hook_ClientSettingsChanged( CPlayerSlot slot )
 {
 	META_CONPRINTF( "Hook_ClientSettingsChanged(%d)\n", slot );
 }
 
-void SamplePlugin::Hook_OnClientConnected( CPlayerSlot slot, const char *pszName, uint64 xuid, const char *pszNetworkID, const char *pszAddress, bool bFakePlayer )
+void VoiceData::Hook_OnClientConnected( CPlayerSlot slot, const char *pszName, uint64 xuid, const char *pszNetworkID, const char *pszAddress, bool bFakePlayer )
 {
 	META_CONPRINTF( "Hook_OnClientConnected(%d, \"%s\", %d, \"%s\", \"%s\", %d)\n", slot, pszName, xuid, pszNetworkID, pszAddress, bFakePlayer );
 }
 
-bool SamplePlugin::Hook_ClientConnect( CPlayerSlot slot, const char *pszName, uint64 xuid, const char *pszNetworkID, bool unk1, CBufferString *pRejectReason )
+bool VoiceData::Hook_ClientConnect( CPlayerSlot slot, const char *pszName, uint64 xuid, const char *pszNetworkID, bool unk1, CBufferString *pRejectReason )
 {
 	META_CONPRINTF( "Hook_ClientConnect(%d, \"%s\", %d, \"%s\", %d, \"%s\")\n", slot, pszName, xuid, pszNetworkID, unk1, pRejectReason->ToGrowable()->Get() );
 
 	RETURN_META_VALUE(MRES_IGNORED, true);
 }
 
-void SamplePlugin::Hook_ClientPutInServer( CPlayerSlot slot, char const *pszName, int type, uint64 xuid )
+void VoiceData::Hook_ClientPutInServer( CPlayerSlot slot, char const *pszName, int type, uint64 xuid )
 {
 	META_CONPRINTF( "Hook_ClientPutInServer(%d, \"%s\", %d, %d)\n", slot, pszName, type, xuid );
 }
 
-void SamplePlugin::Hook_ClientDisconnect( CPlayerSlot slot, ENetworkDisconnectionReason reason, const char *pszName, uint64 xuid, const char *pszNetworkID )
+void VoiceData::Hook_ClientDisconnect( CPlayerSlot slot, ENetworkDisconnectionReason reason, const char *pszName, uint64 xuid, const char *pszNetworkID )
 {
 	META_CONPRINTF( "Hook_ClientDisconnect(%d, %d, \"%s\", %d, \"%s\")\n", slot, reason, pszName, xuid, pszNetworkID );
 }
 
-void SamplePlugin::Hook_GameFrame( bool simulating, bool bFirstTick, bool bLastTick )
+void VoiceData::Hook_GameFrame( bool simulating, bool bFirstTick, bool bLastTick )
 {
 	/**
 	 * simulating:
@@ -162,7 +152,7 @@ void SamplePlugin::Hook_GameFrame( bool simulating, bool bFirstTick, bool bLastT
 	 */
 }
 
-void SamplePlugin::OnLevelInit( char const *pMapName,
+void VoiceData::OnLevelInit( char const *pMapName,
 									 char const *pMapEntities,
 									 char const *pOldLevel,
 									 char const *pLandmarkName,
@@ -172,57 +162,57 @@ void SamplePlugin::OnLevelInit( char const *pMapName,
 	META_CONPRINTF("OnLevelInit(%s)\n", pMapName);
 }
 
-void SamplePlugin::OnLevelShutdown()
+void VoiceData::OnLevelShutdown()
 {
 	META_CONPRINTF("OnLevelShutdown()\n");
 }
 
-bool SamplePlugin::Pause(char *error, size_t maxlen)
+bool VoiceData::Pause(char *error, size_t maxlen)
 {
 	return true;
 }
 
-bool SamplePlugin::Unpause(char *error, size_t maxlen)
+bool VoiceData::Unpause(char *error, size_t maxlen)
 {
 	return true;
 }
 
-const char *SamplePlugin::GetLicense()
+const char *VoiceData::GetLicense()
 {
 	return "Public Domain";
 }
 
-const char *SamplePlugin::GetVersion()
+const char *VoiceData::GetVersion()
 {
-	return "1.0.0.0";
+	return "1.0";
 }
 
-const char *SamplePlugin::GetDate()
+const char *VoiceData::GetDate()
 {
 	return __DATE__;
 }
 
-const char *SamplePlugin::GetLogTag()
+const char *VoiceData::GetLogTag()
 {
-	return "SAMPLE";
+	return "VOICEDATA";
 }
 
-const char *SamplePlugin::GetAuthor()
+const char *VoiceData::GetAuthor()
 {
-	return "AlliedModders LLC";
+	return "Oylsister";
 }
 
-const char *SamplePlugin::GetDescription()
+const char *VoiceData::GetDescription()
 {
-	return "Sample basic plugin";
+	return "Send Voice data to Voice chat";
 }
 
-const char *SamplePlugin::GetName()
+const char *VoiceData::GetName()
 {
-	return "Sample Plugin";
+	return "Voice Data";
 }
 
-const char *SamplePlugin::GetURL()
+const char *VoiceData::GetURL()
 {
-	return "http://www.sourcemm.net/";
+	return "https://github.com/Oylsister";
 }

@@ -21,7 +21,7 @@
 #include <igameeventsystem.h>
 #include <protobuf/generated/network_connection.pb.h>
 
-class SamplePlugin : public ISmmPlugin, public IMetamodListener
+class VoiceData : public ISmmPlugin, public IMetamodListener
 {
 public:
 	bool Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen, bool late);
@@ -56,7 +56,7 @@ public:
 	const char *GetLogTag();
 };
 
-extern SamplePlugin g_SamplePlugin;
+extern VoiceData g_VoiceData;
 
 PLUGIN_GLOBALVARS();
 
