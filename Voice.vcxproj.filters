@@ -4,6 +4,9 @@
     <Filter Include="Header">
       <UniqueIdentifier>{4611f924-9946-4bf1-ae63-9bdbeac30842}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Ambuild">
+      <UniqueIdentifier>{6dd65763-fa7d-4ad6-b4a2-77a4a5076ccc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Voice.h">
@@ -18,5 +21,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AMBuilder">
+      <Filter>Ambuild</Filter>
+    </None>
+    <None Include="AMBuildScript">
+      <Filter>Ambuild</Filter>
+    </None>
+    <None Include="configure.py">
+      <Filter>Ambuild</Filter>
+    </None>
+    <None Include="PackageScript">
+      <Filter>Ambuild</Filter>
+    </None>
   </ItemGroup>
 </Project>

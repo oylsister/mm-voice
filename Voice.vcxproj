@@ -68,6 +68,12 @@
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="Voice.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="AMBuilder" />
+    <None Include="AMBuildScript" />
+    <None Include="configure.py" />
+    <None Include="PackageScript" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

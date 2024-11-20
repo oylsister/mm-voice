@@ -18,6 +18,7 @@
 #include <ISmmPlugin.h>
 #include <igameevents.h>
 #include <sh_vector.h>
+#include <igameeventsystem.h>
 #include <protobuf/generated/network_connection.pb.h>
 
 class SamplePlugin : public ISmmPlugin, public IMetamodListener
