@@ -2,9 +2,11 @@
 
 #include <iostream> 
 #include <audio.h>
+#include "include/sndfile.h"
 
 std::vector<uint8_t> AudioPlayer::GetAudioByte(const char* filepath)
 {
+	/* FFMpegSection
 	std::vector<uint8_t> audio;
 
 	AVFormatContext* formatContext = avformat_alloc_context(); 
@@ -104,6 +106,25 @@ std::vector<uint8_t> AudioPlayer::GetAudioByte(const char* filepath)
 	
 	// Output the size of the byte array 
 	//std::cout << "Audio data size: " << audioData.size() << " bytes" << std::endl;
+
+	return audioData;
+	*/
+
+	SF_INFO info; 
+	SNDFILE* file = sf_open(filepath, SFM_READ, &info); 
+
+	if (!file) 
+	{ 
+		std::cerr << "Could not open the file." << std::endl; 
+		return {};
+	} 
+	// Read the audio data 
+
+	std::vector<uint8_t> audioData(info.frames * info.channels * info.format);
+	sf_readf_short(file, reinterpret_cast<short*>(audioData.data()), info.frames); 
+	
+	// Close the file 
+	sf_close(file);
 
 	return audioData;
 }

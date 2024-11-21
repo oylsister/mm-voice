@@ -16,14 +16,16 @@ for sdk_target in MMSPlugin.sdk_targets:
     'Voice.cpp',
     'utils.cpp',
     'audio.cpp',
+    'protobuf/generated/netmessages.pb.cc',
+    'protobuf/generated/networkbasetypes.pb.cc',
+    'protobuf/generated/network_connection.pb.cc',
+    'protobuf/generated/networksystem_protomessages.pb.cc',
   ]
 
   binary.compiler.cxxincludes += [
     os.path.join(builder.sourcePath, 'protobuf', 'generated'),
-    os.path.join(builder.sourcePath, 'FFmpeg', 'libavcodec'),
-    os.path.join(builder.sourcePath, 'FFmpeg', 'libavformat'),
-    os.path.join(builder.sourcePath, 'FFmpeg', 'libavutil'),
-    os.path.join(builder.sourcePath, 'FFmpeg', 'libswresample'),
+    os.path.join(builder.sourcePath, 'include'),
+    os.path.join(builder.sourcePath),
   ]
 
   nodes = builder.Add(binary)

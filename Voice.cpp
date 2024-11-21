@@ -16,7 +16,7 @@
 #include "Voice.h"
 #include "iserver.h"
 #include "audio.h"
-#include "protobuf/generated/netmessages.pb.h"
+#include <netmessages.pb.h>
 
 SH_DECL_HOOK3_void(IServerGameDLL, GameFrame, SH_NOATTRIB, 0, bool, bool, bool);
 SH_DECL_HOOK4_void(IServerGameClients, ClientActive, SH_NOATTRIB, 0, CPlayerSlot, bool, const char *, uint64);
