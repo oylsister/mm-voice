@@ -20,11 +20,13 @@ for sdk_target in MMSPlugin.sdk_targets:
     'protobuf/generated/networkbasetypes.pb.cc',
     'protobuf/generated/network_connection.pb.cc',
     'protobuf/generated/networksystem_protomessages.pb.cc',
+    'libsndfile/src/sndfile.c',
   ]
 
   binary.compiler.cxxincludes += [
     os.path.join(builder.sourcePath, 'protobuf', 'generated'),
     os.path.join(builder.sourcePath, 'include'),
+    os.path.join(builder.sourcePath, 'libsndfile', 'src'),
     os.path.join(builder.sourcePath),
   ]
 
