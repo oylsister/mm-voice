@@ -36,6 +36,9 @@
     <ClInclude Include="FFmpeg\libavutil\pixfmt.h">
       <Filter>FFmpeg</Filter>
     </ClInclude>
+    <ClInclude Include="include\sndfile.h">
+      <Filter>Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utils.cpp" />

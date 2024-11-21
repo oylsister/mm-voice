@@ -64,6 +64,7 @@
     <ClInclude Include="FFmpeg\libavcodec\avcodec.h" />
     <ClInclude Include="FFmpeg\libavutil\macros.h" />
     <ClInclude Include="FFmpeg\libavutil\pixfmt.h" />
+    <ClInclude Include="include\sndfile.h" />
     <ClInclude Include="recipientfilters.h" />
     <ClInclude Include="serversideclient.h" />
     <ClInclude Include="utils.h" />
