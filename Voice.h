@@ -48,7 +48,7 @@ public: //hooks
 	bool Hook_ClientConnect(CPlayerSlot slot, const char* pszName, uint64 xuid, const char* pszNetworkID, bool unk1, CBufferString* pRejectReason);
 	void Hook_ClientCommand(CPlayerSlot nSlot, const CCommand& _cmd);
 public: // function
-	void SendVoiceData();
+	void SendVoiceData(std::vector<uint8_t> data);
 	void HandleVoiceData();
 	void Init();
 public:

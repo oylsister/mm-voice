@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include "Voice.h"
 #include "iserver.h"
+#include "audio.h"
 #include "protobuf/generated/netmessages.pb.h"
 
 SH_DECL_HOOK3_void(IServerGameDLL, GameFrame, SH_NOATTRIB, 0, bool, bool, bool);
@@ -178,7 +179,12 @@ void VoiceData::HandleVoiceData()
 
 }
 
-void VoiceData::SendVoiceData()
+void InitialSendingVoiceData(const char* filepath)
+{
+	auto byte = AudioPlayer::GetAudioByte(filepath);
+}
+
+void VoiceData::SendVoiceData(std::vector<uint8_t> data)
 {
 	INetworkMessageInternal* pSVC_VoiceData = g_pNetworkMessages->FindNetworkMessageById(47);
 	CNetMessagePB<CSVCMsg_VoiceData>* pData = pSVC_VoiceData->AllocateMessage()->ToPB<CSVCMsg_VoiceData>();
@@ -187,10 +193,11 @@ void VoiceData::SendVoiceData()
 
 	pData->set_xuid(0);
 	pData->set_client(g_AudioPlayerClient->GetPlayerSlot().Get());
-
 	CMsgVoiceAudio *audio = pData->mutable_audio();
 
-	audio->set_voice_data(0);
+	std::string audioString(data.begin(), data.end());
+
+	audio->set_allocated_voice_data(&audioString);
 	audio->set_format(VOICEDATA_FORMAT_ENGINE);
 	audio->set_sample_rate(24000);
 	audio->set_sequence_bytes(0);

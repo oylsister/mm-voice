@@ -15,10 +15,15 @@ for sdk_target in MMSPlugin.sdk_targets:
   binary.sources += [
     'Voice.cpp',
     'utils.cpp',
+    'audio.cpp',
   ]
 
   binary.compiler.cxxincludes += [
     os.path.join(builder.sourcePath, 'protobuf', 'generated'),
+    os.path.join(builder.sourcePath, 'libavcodec'),
+    os.path.join(builder.sourcePath, 'libavformat'),
+    os.path.join(builder.sourcePath, 'libavutil'),
+    os.path.join(builder.sourcePath, 'libswresample'),
   ]
 
   nodes = builder.Add(binary)
