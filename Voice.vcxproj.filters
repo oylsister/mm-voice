@@ -7,6 +7,9 @@
     <Filter Include="Ambuild">
       <UniqueIdentifier>{6dd65763-fa7d-4ad6-b4a2-77a4a5076ccc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FFmpeg">
+      <UniqueIdentifier>{15f9f126-1441-4598-a79b-8ab62b25a947}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Voice.h">
@@ -21,9 +24,23 @@
     <ClInclude Include="serversideclient.h">
       <Filter>Header</Filter>
     </ClInclude>
+    <ClInclude Include="audio.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="FFmpeg\libavcodec\avcodec.h">
+      <Filter>FFmpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="FFmpeg\libavutil\macros.h">
+      <Filter>FFmpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="FFmpeg\libavutil\pixfmt.h">
+      <Filter>FFmpeg</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utils.cpp" />
+    <ClCompile Include="Voice.cpp" />
+    <ClCompile Include="audio.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AMBuilder">
