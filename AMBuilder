@@ -20,10 +20,10 @@ for sdk_target in MMSPlugin.sdk_targets:
 
   binary.compiler.cxxincludes += [
     os.path.join(builder.sourcePath, 'protobuf', 'generated'),
-    os.path.join(builder.sourcePath, 'libavcodec'),
-    os.path.join(builder.sourcePath, 'libavformat'),
-    os.path.join(builder.sourcePath, 'libavutil'),
-    os.path.join(builder.sourcePath, 'libswresample'),
+    os.path.join(builder.sourcePath, 'FFmpeg', 'libavcodec'),
+    os.path.join(builder.sourcePath, 'FFmpeg', 'libavformat'),
+    os.path.join(builder.sourcePath, 'FFmpeg', 'libavutil'),
+    os.path.join(builder.sourcePath, 'FFmpeg', 'libswresample'),
   ]
 
   nodes = builder.Add(binary)
